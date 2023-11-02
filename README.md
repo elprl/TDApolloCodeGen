@@ -6,4 +6,4 @@ Created with XCode. Just open the proj file, hit run and tap the button.
 
 The code generates a Swift Package in a `generate` folder in the root of the project folder.
 
-This SPM can then be added to the TDCodeReview project via a local SPM.
+This SPM can then be added to an xcode project via SPM - https://github.com/elprl/TDApolloCodeGen .
