@@ -1,0 +1,166 @@
+query AllRepos($endCursor: String) {
+  viewer {
+    repositories(
+      first: 100
+      after: $endCursor
+      affiliations: [OWNER, ORGANIZATION_MEMBER, COLLABORATOR]
+      ownerAffiliations: [OWNER, ORGANIZATION_MEMBER, COLLABORATOR]
+      orderBy: {field: PUSHED_AT, direction: DESC}
+    ) {
+      edges {
+        node {
+            ...RepositoryDetails
+        }
+      }
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+    }
+  }
+  ...RateLimitWithoutTypeCondition
+}
+
+fragment RateLimitWithoutTypeCondition on Query {
+  rateLimit {
+    limit
+    cost
+    remaining
+    resetAt
+  }
+}
+
+fragment Files on Tree {
+  entries {
+    ...FileMetaData
+  }
+}
+
+fragment FileMetaData on TreeEntry {
+  oid
+  name
+  type
+  path
+  extension
+  object {
+    ... on Blob {
+      byteSize
+      isBinary
+      isTruncated
+    }
+    ... on Tree {
+      oid
+    }
+  }
+}
+
+fragment RepositoryDetails on Repository {
+  id
+  name
+  owner {
+    id
+    login
+    avatarUrl
+  }
+  stargazers {
+    totalCount
+  }
+  pullRequests {
+    totalCount
+  }
+  url
+  updatedAt
+  pushedAt
+  primaryLanguage {
+    name
+  }
+  isPrivate
+  defaultBranchRef {
+    name
+  }
+  description
+}
+
+query Files($owner: String!, $repo: String!, $branch: String!) {
+  repository(owner: $owner, name: $repo) {
+    ... on Repository {
+      refs(first: 100, refPrefix: "refs/heads/", after: "") {
+        totalCount
+      }
+      object(expression: $branch) {
+        ... on Tree {
+          ...Files
+        }
+      }
+    }
+  }
+  ...RateLimitWithoutTypeCondition
+}
+
+query AllBranches($owner: String!, $repo: String!, $endCursor: String) {
+  repository(owner: $owner, name: $repo) {
+    refs(first: 100, refPrefix: "refs/heads/", after: $endCursor, orderBy: {field: TAG_COMMIT_DATE, direction: ASC}) {
+      __typename
+      ...Branches
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+  ...RateLimitWithoutTypeCondition
+}
+
+fragment Branches on RefConnection {
+  totalCount
+  edges {
+    node {
+      __typename
+      ...Branch
+    }
+  }
+}
+
+fragment Branch on Ref {
+  name
+  target {
+    ... on Commit {
+      history(first: 0) {
+        totalCount
+      }
+    }
+  }
+}
+
+fragment FileContent on Blob {
+  oid
+  commitResourcePath
+  commitUrl
+  text
+  byteSize
+  isBinary
+  isTruncated
+}
+
+query GetFile($owner: String!, $repo: String!, $commitPath: String!) {
+  repository(owner: $owner, name: $repo) {
+    ... on Repository {
+      object(expression: $commitPath) {
+        ... on Blob {
+          ...FileContent
+        }
+      }
+    }
+  }
+  ...RateLimitWithoutTypeCondition
+}
+
+query GetUserProfile {
+  viewer {
+    name
+    url
+    avatarUrl
+    id
+    login
+  }
+}
