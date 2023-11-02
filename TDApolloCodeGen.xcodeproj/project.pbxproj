@@ -28,6 +28,7 @@
 		E17D86992AF2B30A000068CA /* schema.docs.graphqls */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = schema.docs.graphqls; sourceTree = "<group>"; };
 		E17D86A42AF2B65B000068CA /* Queries.graphql */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Queries.graphql; sourceTree = "<group>"; };
 		E19D05E32AF3E5D800136AC2 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E19D05E72AF3EC4B00136AC2 /* Package.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +48,7 @@
 		E17D86722AF2B1E8000068CA = {
 			isa = PBXGroup;
 			children = (
+				E19D05E72AF3EC4B00136AC2 /* Package.swift */,
 				E19D05E32AF3E5D800136AC2 /* README.md */,
 				E17D867D2AF2B1E8000068CA /* ApolloTestHarness */,
 				E17D867C2AF2B1E8000068CA /* Products */,
