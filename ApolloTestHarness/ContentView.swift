@@ -33,7 +33,7 @@ struct ContentView: View {
                 ),
                 output: ApolloCodegenConfiguration.FileOutput(
                     schemaTypes: ApolloCodegenConfiguration.SchemaTypesFileOutput(
-                        path: "/Volumes/SabrentRocket4_1TB/Work/TapDigital/ApolloCodeGen/generated/schema/",
+                        path: "/Volumes/SabrentRocket4_1TB/Work/TapDigital/ApolloCodeGen/",
                         moduleType: .swiftPackageManager
                     ),
                     operations: .inSchemaModule,

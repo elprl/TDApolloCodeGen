@@ -5,7 +5,7 @@ import PackageDescription
 let package = Package(
   name: "TDGitGraphQL",
   platforms: [
-    .iOS(.v16),
+    .iOS(.v12),
     .macOS(.v10_14),
     .tvOS(.v12),
     .watchOS(.v5),
@@ -22,7 +22,7 @@ let package = Package(
       dependencies: [
         .product(name: "ApolloAPI", package: "apollo-ios"),
       ],
-      path: "./generated/schema/Sources"
+      path: "./Sources"
     ),
   ]
 )
