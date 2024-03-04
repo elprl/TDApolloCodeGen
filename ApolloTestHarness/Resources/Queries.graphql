@@ -179,7 +179,7 @@ fragment PullRequestDetails on PullRequest {
   changedFiles
 }
 
-fragment PullRequestChangedFile on PullRequestChangedFile {
+fragment PRChangedFile on PullRequestChangedFile {
   additions
   changeType
   deletions
@@ -211,7 +211,7 @@ query GetPullRequestFiles($owner: String!, $repo: String!, $pullReq: Int!, $endC
             endCursor
           }
           nodes {
-            ...PullRequestChangedFile
+            ...PRChangedFile
           }
         }
       }

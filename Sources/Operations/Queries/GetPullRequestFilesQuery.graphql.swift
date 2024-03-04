@@ -7,8 +7,8 @@ public final class GetPullRequestFilesQuery: GraphQLQuery {
   public static let operationName: String = "GetPullRequestFiles"
   public static let operationDocument: ApolloAPI.OperationDocument = .init(
     definition: .init(
-      #"query GetPullRequestFiles($owner: String!, $repo: String!, $pullReq: Int!, $endCursor: String) { repository(owner: $owner, name: $repo) { __typename pullRequest(number: $pullReq) { __typename baseRef { __typename name } ... on PullRequest { files(first: 100, after: $endCursor) { __typename pageInfo { __typename hasNextPage endCursor } nodes { __typename ...PullRequestChangedFile } } } } } ...RateLimitWithoutTypeCondition }"#,
-      fragments: [PullRequestChangedFile.self, RateLimitWithoutTypeCondition.self]
+      #"query GetPullRequestFiles($owner: String!, $repo: String!, $pullReq: Int!, $endCursor: String) { repository(owner: $owner, name: $repo) { __typename pullRequest(number: $pullReq) { __typename baseRef { __typename name } ... on PullRequest { files(first: 100, after: $endCursor) { __typename pageInfo { __typename hasNextPage endCursor } nodes { __typename ...PRChangedFile } } } } } ...RateLimitWithoutTypeCondition }"#,
+      fragments: [PRChangedFile.self, RateLimitWithoutTypeCondition.self]
     ))
 
   public var owner: String
@@ -257,7 +257,7 @@ public final class GetPullRequestFilesQuery: GraphQLQuery {
             public static var __parentType: ApolloAPI.ParentType { TDGitGraphQL.Objects.PullRequestChangedFile }
             public static var __selections: [ApolloAPI.Selection] { [
               .field("__typename", String.self),
-              .fragment(PullRequestChangedFile.self),
+              .fragment(PRChangedFile.self),
             ] }
 
             /// The number of additions to the file.
@@ -275,7 +275,7 @@ public final class GetPullRequestFilesQuery: GraphQLQuery {
               public let __data: DataDict
               public init(_dataDict: DataDict) { __data = _dataDict }
 
-              public var pullRequestChangedFile: PullRequestChangedFile { _toFragment() }
+              public var pRChangedFile: PRChangedFile { _toFragment() }
             }
 
             public init(
@@ -296,7 +296,7 @@ public final class GetPullRequestFilesQuery: GraphQLQuery {
                 ],
                 fulfilledFragments: [
                   ObjectIdentifier(GetPullRequestFilesQuery.Data.Repository.PullRequest.Files.Node.self),
-                  ObjectIdentifier(PullRequestChangedFile.self)
+                  ObjectIdentifier(PRChangedFile.self)
                 ]
               ))
             }
