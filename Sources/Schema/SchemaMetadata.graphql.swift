@@ -275,6 +275,8 @@ public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
     case "TreeEntry": return TDGitGraphQL.Objects.TreeEntry
     case "RefEdge": return TDGitGraphQL.Objects.RefEdge
     case "CommitHistoryConnection": return TDGitGraphQL.Objects.CommitHistoryConnection
+    case "PullRequestChangedFileConnection": return TDGitGraphQL.Objects.PullRequestChangedFileConnection
+    case "PullRequestChangedFile": return TDGitGraphQL.Objects.PullRequestChangedFile
     default: return nil
     }
   }

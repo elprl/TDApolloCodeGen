@@ -164,3 +164,58 @@ query GetUserProfile {
     login
   }
 }
+
+fragment PullRequestDetails on PullRequest {
+  title
+  number
+  createdAt
+  url
+  bodyText
+  state
+  author {
+    avatarUrl
+    login
+  }
+  changedFiles
+}
+
+fragment PullRequestChangedFile on PullRequestChangedFile {
+  additions
+  changeType
+  deletions
+  path
+  viewerViewedState
+}
+
+query GetRecentPullRequests($owner: String!, $repo: String!) {
+  repository(owner: $owner, name: $repo) {
+    pullRequests(first: 100, states: [OPEN, CLOSED, MERGED]) {
+      nodes {
+        ...PullRequestDetails
+      }
+    }
+  }
+  ...RateLimitWithoutTypeCondition
+}
+
+query GetPullRequestFiles($owner: String!, $repo: String!, $pullReq: Int!, $endCursor: String) {
+  repository(owner: $owner, name: $repo) {
+    pullRequest(number: $pullReq) {
+      baseRef {
+        name
+      }
+      ... on PullRequest {
+        files(first: 100, after: $endCursor) {
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+          nodes {
+            ...PullRequestChangedFile
+          }
+        }
+      }
+    }
+  }
+  ...RateLimitWithoutTypeCondition
+}
