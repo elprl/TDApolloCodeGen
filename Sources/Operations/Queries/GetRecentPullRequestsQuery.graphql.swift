@@ -157,6 +157,10 @@ public final class GetRecentPullRequestsQuery: GraphQLQuery {
           public var bodyText: String { __data["bodyText"] }
           /// Identifies the state of the pull request.
           public var state: GraphQLEnum<TDGitGraphQL.PullRequestState> { __data["state"] }
+          /// Identifies the name of the base Ref associated with the pull request, even if the ref has been deleted.
+          public var baseRefName: String { __data["baseRefName"] }
+          /// Identifies the name of the head Ref associated with the pull request, even if the ref has been deleted.
+          public var headRefName: String { __data["headRefName"] }
           /// The actor who authored the comment.
           public var author: PullRequestDetails.Author? { __data["author"] }
           /// The number of changed files in this pull request.
@@ -176,6 +180,8 @@ public final class GetRecentPullRequestsQuery: GraphQLQuery {
             url: TDGitGraphQL.URI,
             bodyText: String,
             state: GraphQLEnum<TDGitGraphQL.PullRequestState>,
+            baseRefName: String,
+            headRefName: String,
             author: PullRequestDetails.Author? = nil,
             changedFiles: Int
           ) {
@@ -188,6 +194,8 @@ public final class GetRecentPullRequestsQuery: GraphQLQuery {
                 "url": url,
                 "bodyText": bodyText,
                 "state": state,
+                "baseRefName": baseRefName,
+                "headRefName": headRefName,
                 "author": author._fieldData,
                 "changedFiles": changedFiles,
               ],

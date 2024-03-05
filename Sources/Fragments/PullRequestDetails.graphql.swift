@@ -5,7 +5,7 @@
 
 public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment PullRequestDetails on PullRequest { __typename title number createdAt url bodyText state author { __typename avatarUrl login } changedFiles }"#
+    #"fragment PullRequestDetails on PullRequest { __typename title number createdAt url bodyText state baseRefName headRefName author { __typename avatarUrl login } changedFiles }"#
   }
 
   public let __data: DataDict
@@ -20,6 +20,8 @@ public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
     .field("url", TDGitGraphQL.URI.self),
     .field("bodyText", String.self),
     .field("state", GraphQLEnum<TDGitGraphQL.PullRequestState>.self),
+    .field("baseRefName", String.self),
+    .field("headRefName", String.self),
     .field("author", Author?.self),
     .field("changedFiles", Int.self),
   ] }
@@ -36,6 +38,10 @@ public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
   public var bodyText: String { __data["bodyText"] }
   /// Identifies the state of the pull request.
   public var state: GraphQLEnum<TDGitGraphQL.PullRequestState> { __data["state"] }
+  /// Identifies the name of the base Ref associated with the pull request, even if the ref has been deleted.
+  public var baseRefName: String { __data["baseRefName"] }
+  /// Identifies the name of the head Ref associated with the pull request, even if the ref has been deleted.
+  public var headRefName: String { __data["headRefName"] }
   /// The actor who authored the comment.
   public var author: Author? { __data["author"] }
   /// The number of changed files in this pull request.
@@ -48,6 +54,8 @@ public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
     url: TDGitGraphQL.URI,
     bodyText: String,
     state: GraphQLEnum<TDGitGraphQL.PullRequestState>,
+    baseRefName: String,
+    headRefName: String,
     author: Author? = nil,
     changedFiles: Int
   ) {
@@ -60,6 +68,8 @@ public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
         "url": url,
         "bodyText": bodyText,
         "state": state,
+        "baseRefName": baseRefName,
+        "headRefName": headRefName,
         "author": author._fieldData,
         "changedFiles": changedFiles,
       ],

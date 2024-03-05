@@ -172,6 +172,8 @@ fragment PullRequestDetails on PullRequest {
   url
   bodyText
   state
+  baseRefName
+  headRefName
   author {
     avatarUrl
     login
