@@ -169,6 +169,7 @@ fragment PullRequestDetails on PullRequest {
   title
   number
   createdAt
+  updatedAt
   url
   bodyText
   state
