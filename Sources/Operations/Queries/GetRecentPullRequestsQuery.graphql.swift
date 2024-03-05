@@ -151,6 +151,8 @@ public final class GetRecentPullRequestsQuery: GraphQLQuery {
           public var number: Int { __data["number"] }
           /// Identifies the date and time when the object was created.
           public var createdAt: TDGitGraphQL.DateTime { __data["createdAt"] }
+          /// Identifies the date and time when the object was last updated.
+          public var updatedAt: TDGitGraphQL.DateTime { __data["updatedAt"] }
           /// The HTTP URL for this pull request.
           public var url: TDGitGraphQL.URI { __data["url"] }
           /// The body rendered to text.
@@ -177,6 +179,7 @@ public final class GetRecentPullRequestsQuery: GraphQLQuery {
             title: String,
             number: Int,
             createdAt: TDGitGraphQL.DateTime,
+            updatedAt: TDGitGraphQL.DateTime,
             url: TDGitGraphQL.URI,
             bodyText: String,
             state: GraphQLEnum<TDGitGraphQL.PullRequestState>,
@@ -191,6 +194,7 @@ public final class GetRecentPullRequestsQuery: GraphQLQuery {
                 "title": title,
                 "number": number,
                 "createdAt": createdAt,
+                "updatedAt": updatedAt,
                 "url": url,
                 "bodyText": bodyText,
                 "state": state,

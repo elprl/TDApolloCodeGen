@@ -5,7 +5,7 @@
 
 public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
   public static var fragmentDefinition: StaticString {
-    #"fragment PullRequestDetails on PullRequest { __typename title number createdAt url bodyText state baseRefName headRefName author { __typename avatarUrl login } changedFiles }"#
+    #"fragment PullRequestDetails on PullRequest { __typename title number createdAt updatedAt url bodyText state baseRefName headRefName author { __typename avatarUrl login } changedFiles }"#
   }
 
   public let __data: DataDict
@@ -17,6 +17,7 @@ public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
     .field("title", String.self),
     .field("number", Int.self),
     .field("createdAt", TDGitGraphQL.DateTime.self),
+    .field("updatedAt", TDGitGraphQL.DateTime.self),
     .field("url", TDGitGraphQL.URI.self),
     .field("bodyText", String.self),
     .field("state", GraphQLEnum<TDGitGraphQL.PullRequestState>.self),
@@ -32,6 +33,8 @@ public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
   public var number: Int { __data["number"] }
   /// Identifies the date and time when the object was created.
   public var createdAt: TDGitGraphQL.DateTime { __data["createdAt"] }
+  /// Identifies the date and time when the object was last updated.
+  public var updatedAt: TDGitGraphQL.DateTime { __data["updatedAt"] }
   /// The HTTP URL for this pull request.
   public var url: TDGitGraphQL.URI { __data["url"] }
   /// The body rendered to text.
@@ -51,6 +54,7 @@ public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
     title: String,
     number: Int,
     createdAt: TDGitGraphQL.DateTime,
+    updatedAt: TDGitGraphQL.DateTime,
     url: TDGitGraphQL.URI,
     bodyText: String,
     state: GraphQLEnum<TDGitGraphQL.PullRequestState>,
@@ -65,6 +69,7 @@ public struct PullRequestDetails: TDGitGraphQL.SelectionSet, Fragment {
         "title": title,
         "number": number,
         "createdAt": createdAt,
+        "updatedAt": updatedAt,
         "url": url,
         "bodyText": bodyText,
         "state": state,
